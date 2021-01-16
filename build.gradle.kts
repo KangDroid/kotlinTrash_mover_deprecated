@@ -1,5 +1,18 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+buildscript {
+    val springBootVersion = "2.1.7.RELEASE"
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-allopen:1.4.21")
+    }
+}
+
 plugins {
     kotlin("jvm") version "1.4.21"
 }
@@ -12,8 +25,15 @@ repositories {
 }
 
 dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
     testImplementation(kotlin("test-junit"))
     testCompile("org.assertj:assertj-core:3.11.1")
+}
+
+apply {
+    plugin("kotlin-spring")
+    plugin("org.springframework.boot")
+    plugin("io.spring.dependency-management")
 }
 
 tasks.test {
