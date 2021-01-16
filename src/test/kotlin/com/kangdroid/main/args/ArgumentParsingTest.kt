@@ -24,6 +24,7 @@ class ArgumentParsingTest {
         argumentParser.parseMain()
 
         // Check
+
         assertThat(argumentParser.argsDefinition.isRecursive).isEqualTo(true)
         assertThat(argumentParser.argsDefinition.isForce).isEqualTo(false)
         assertThat(argumentParser.argsDefinition.runServer).isEqualTo(false)
