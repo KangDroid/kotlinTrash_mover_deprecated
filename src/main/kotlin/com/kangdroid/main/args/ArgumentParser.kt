@@ -36,7 +36,10 @@ class ArgumentParser(input: Array<String>) {
      */
     private fun parseShort(inputString: String) {
         for (singleChar in inputString) {
-            shortMap[singleChar]?.invoke()
+            val functionInvoke: () -> Unit = shortMap[singleChar] ?: {
+                println("The argument $inputString is not found.")
+            }
+            functionInvoke()
         }
     }
 
@@ -45,6 +48,9 @@ class ArgumentParser(input: Array<String>) {
      * Input should remove its '--'
      */
     private fun parseLong(inputString: String) {
-        longMap[inputString]?.invoke()
+        val functionInvoke: () -> Unit = longMap[inputString] ?: {
+            println("The argument $inputString is not found.")
+        }
+        functionInvoke()
     }
 }
