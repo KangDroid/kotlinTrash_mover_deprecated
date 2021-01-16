@@ -16,11 +16,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Run Build operation
-      - name: Compiling Code
-        run: |
-          ./gradlew clean build --info --stacktrace
-
       # Run Test operation
       - name: Testing Code
         run: |
