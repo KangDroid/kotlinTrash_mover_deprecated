@@ -13,10 +13,19 @@ class ArgumentParser(input: Array<String>) {
         'f' to {argsDefinition.isForce = true}
     )
 
+    // Long argument data
+    private val longMap: HashMap<String, () -> Unit> = hashMapOf(
+        "run-server" to {argsDefinition.runServer = true},
+        "recursive" to {argsDefinition.isRecursive = true},
+        "force" to {argsDefinition.isForce = true}
+    )
+
     fun parseMain() {
         for (eachArgs in originalArgs) {
             if (eachArgs.get(0) == '-' && (eachArgs.get(1) != '-')) {
                 parseShort(eachArgs.substring(1, eachArgs.length))
+            } else if (eachArgs.get(0) == '-' && eachArgs.get(1) == '-') {
+                parseLong(eachArgs.substring(2, eachArgs.length))
             }
         }
     }
@@ -29,5 +38,13 @@ class ArgumentParser(input: Array<String>) {
         for (singleChar in inputString) {
             shortMap[singleChar]?.invoke()
         }
+    }
+
+    /**
+     * Parse Long ones.
+     * Input should remove its '--'
+     */
+    private fun parseLong(inputString: String) {
+        longMap[inputString]?.invoke()
     }
 }

@@ -103,4 +103,76 @@ class ArgumentParsingTest {
         // cleanup
         cleanup(argumentParser)
     }
+
+    @Test
+    fun argumentParsingLong() {
+        // Let
+        val args: Array<String> = arrayOf("--run-server")
+        val argumentParser: ArgumentParser = ArgumentParser(args)
+
+        // do work.
+        argumentParser.parseMain()
+
+        // check
+        assertThat(argumentParser.argsDefinition.isRecursive).isEqualTo(false)
+        assertThat(argumentParser.argsDefinition.isForce).isEqualTo(false)
+        assertThat(argumentParser.argsDefinition.runServer).isEqualTo(true)
+
+        // cleanup
+        cleanup(argumentParser)
+    }
+
+    @Test
+    fun argumentParsingLongFalse() {
+        // Let
+        val args: Array<String> = arrayOf("--unknown-option")
+        val argumentParser: ArgumentParser = ArgumentParser(args)
+
+        // do work.
+        argumentParser.parseMain()
+
+        // check
+        assertThat(argumentParser.argsDefinition.isRecursive).isEqualTo(false)
+        assertThat(argumentParser.argsDefinition.isForce).isEqualTo(false)
+        assertThat(argumentParser.argsDefinition.runServer).isEqualTo(false)
+
+        // cleanup
+        cleanup(argumentParser)
+    }
+
+    @Test
+    fun argumentParsingLongArray() {
+        // Let
+        val args: Array<String> = arrayOf("--run-server", "--recursive", "--force")
+        val argumentParser: ArgumentParser = ArgumentParser(args)
+
+        // do work.
+        argumentParser.parseMain()
+
+        // check
+        assertThat(argumentParser.argsDefinition.isRecursive).isEqualTo(true)
+        assertThat(argumentParser.argsDefinition.isForce).isEqualTo(true)
+        assertThat(argumentParser.argsDefinition.runServer).isEqualTo(true)
+
+        // cleanup
+        cleanup(argumentParser)
+    }
+
+    @Test
+    fun argumentParsingCombined() {
+        // Let
+        val args: Array<String> = arrayOf("-r", "-f", "--run-server")
+        val argumentParser: ArgumentParser = ArgumentParser(args)
+
+        // do work.
+        argumentParser.parseMain()
+
+        // check
+        assertThat(argumentParser.argsDefinition.isRecursive).isEqualTo(true)
+        assertThat(argumentParser.argsDefinition.isForce).isEqualTo(true)
+        assertThat(argumentParser.argsDefinition.runServer).isEqualTo(true)
+
+        // cleanup
+        cleanup(argumentParser)
+    }
 }
