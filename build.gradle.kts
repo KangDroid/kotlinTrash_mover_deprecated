@@ -9,6 +9,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-allopen:1.4.21")
     }
 }
 
@@ -20,6 +21,7 @@ group = "me.kangdroid"
 version = "1.0-SNAPSHOT"
 
 apply {
+    plugin("kotlin-spring")
     plugin("org.springframework.boot")
     plugin("io.spring.dependency-management")
 }
@@ -29,6 +31,12 @@ repositories {
 }
 
 dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("com.h2database:h2")
+    compile("org.springframework.session:spring-session-jdbc")
+    testCompile("org.springframework.security:spring-security-test")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
     testImplementation(kotlin("test-junit"))
 }
 
