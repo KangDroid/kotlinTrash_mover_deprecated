@@ -37,7 +37,7 @@ class ArgumentParser(input: Array<String>) {
     private fun parseShort(inputString: String) {
         for (singleChar in inputString) {
             val functionInvoke: () -> Unit = shortMap[singleChar] ?: {
-                println("The argument $inputString is not found.")
+                println("The argument $singleChar is not found.")
             }
             functionInvoke()
         }
